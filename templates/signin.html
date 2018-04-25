@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block main %}  
+<div class="form">
+    <div class="message">{{ state.message }}</div>
+    <form action="/signin/" method="post">
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td class="field">{% trans 'Username' %}:</td>
+                <td><input type="text" name="username" class="text" size="15" /></td>
+            </tr>
+            <tr>
+                <td class="field">{% trans 'Passwrod' %}:</td>
+                <td><input type="password" name="password" class="text" size="15" /></td>
+            </tr>
+            <tr>
+                <td class="field"></td>
+                <td><input type="text" class="form-control" name="check_code" id="check_code" placeholder="请输入验证码" size="10"/></td>
+            </tr>
+            <tr>
+                <td class="field"></td>
+                <td><img id="check_code_img" src="/create_code_img/" onclick="refresh_check_code(this)"/></td>
+{#      src是url路径，可得到验证码图片，点击时调用refresh_check_code#}
+            </tr>
+            <script>
+                function refresh_check_code(ths) {
+                  ths.src += '?';
+{#    src后面加问好会自动刷新验证码img的src#}
+                }
+            </script>
+                <tr>
+                <td class="field"></td>
+                <td><button type="submit" class="submit">{% trans 'Login' %}</button></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+{% endblock %}
