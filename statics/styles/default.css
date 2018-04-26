@@ -13,6 +13,11 @@ body { background:#234F32; overflow:hidden; font-size:12px; line-height:150%; te
 #nav li { float:left; margin-right:4px;}
 #nav a:link,#nav a:visited { color:#132B1B; }
 #nav span{}
+#nave { list-style:none; font-size:12px;}
+#nave li { margin-right:4px;}
+#nave a:link,#nav a:visited { color:#132B1B; }
+#nave span{}
+
 
 #footer {margin:5px; font-size:11px; color:#234F32; text-align:center; border-top:1px solid #89C342; line-height:24px; background:#A1CF69; clear:both; }
 #footer a { color:#234F32;}
@@ -48,7 +53,8 @@ body { background:#234F32; overflow:hidden; font-size:12px; line-height:150%; te
 
 .form { margin:0px;}
 .form table {width:100%; }
-.form table tr td { padding:2px;}
+.form table tr td { padding:1px;}
+.form table dt dd { margin:3px;}
 .form table tr td.field { width:70px; text-align:right;}
 .form input.text,.form textarea.text  {font-size:12px; border-top:1px solid #aaa;border-left:1px solid #aaa;border-bottom:1px solid #ddd;border-right:1px solid #ddd; padding:2px; }
 .form button.submit { font-size:12px; border-top:1px solid #C9E3A8;border-left:1px solid #C9E3A8;border-bottom:1px solid #73A635;border-right:1px solid #73A635; height:22px; line-height:22px; padding:0 3px; background:#89C342; color:#333;}
@@ -63,3 +69,8 @@ body { background:#234F32; overflow:hidden; font-size:12px; line-height:150%; te
 .face24 { width:24px; height:24px; border:none; margin:1px; display:inline-block; margin-bottom:-10px;}
 .face32 { width:32px; height:32px; border:none; margin:1px; display:inline-block; margin-bottom:-10px;}
 .face75 { width:75px; height:75px; border:none;}
+
+tr{
+    display:block; /*将tr设置为块体元素*/
+    margin:3px 0;  /*设置tr间距为2px*/
+  }

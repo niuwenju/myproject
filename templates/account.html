@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+{% load user_tags %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block main %}
+<div class="form">
+    <div class="message">{{ state.message }}</div>
+    <form action="/account/" method="post">
+        <table cellpadding="0" cellspacing="0">
+            <ul id="nave">
+            <li><a href="/changepassword">{% trans 'Change password' %}</a></li>
+            <li><a href="/changeemail">{% trans 'Change email' %}</a></li>
+            </ul>
+        </table>
+    </form>
+</div>
+
+{% endblock %}

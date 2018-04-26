@@ -38,6 +38,44 @@ $(document.body).css("zoom",Math.min(rWidth, rHeight));
 <body style="zoom1:3;transform1:scale(3)">
 
 {% block scripts %}{% endblock %}
+<style>
+
+/* 容器 <div> - 需要定位下拉内容 */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* 下拉内容 (默认隐藏) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #00AA00;
+    min-width: 10px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+/* 下拉菜单的链接 */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* 鼠标移上去后修改下拉菜单链接颜色 */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* 在鼠标移上去后显示下拉菜单 */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* 当下拉内容显示后修改下拉按钮的背景颜色 */
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}*/
+</style>
 <div id="container">
     <div id="header">
         <h1><a href="/"><img src="/statics/images/favicon.png" alt="Tmitter" />Tmitter</a></h1>
@@ -49,8 +87,15 @@ $(document.body).css("zoom",Math.min(rWidth, rHeight));
             <li><a href="/signup">{% trans 'Signup' %}</a></li>
             {% else %} 
             <li><a href="/user/{{ username }}">{% trans 'Me' %}</a></li>
-            <li><a href="/settings">{% trans 'Edit' %}</a></li>
-            <li><a href="/changepassword">{% trans 'changepassword' %}</a></li>
+            <li>
+                <div class="dropdown">
+                    <a href="/settings">{% trans 'Edit' %}</a>
+                    <div class="dropdown-content">
+                        <a href="/settings">{% trans 'Settings' %}</a>
+                        <a href="/account">{% trans 'Account' %}</a>
+                    </div>
+                </div>
+            </li>
             <li><a href="/signout">{% trans 'Signout' %}</a></li>
             {% endif %}
         </ul>

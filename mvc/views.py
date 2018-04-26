@@ -10,6 +10,7 @@ from tmitter.mvc.models import Note,User,Category,Area
 from tmitter.mvc.feed import RSSRecentNotes,RSSUserRecentNotes
 from tmitter.utils import mailer,formatter,function,uploader,check_code
 import io
+from django.shortcuts import render
 import cStringIO, string, os, random
 from PIL import Image, ImageDraw, ImageFont
 
@@ -497,7 +498,90 @@ def settings(request):
     _output = _template.render(_context)  
     return HttpResponse(_output)
 
+def __do_changeemail(request, _userinfo):
+    _state = {
+        'success': False,
+        'message': '',
+    }
 
+    # check username exist
+    """if (_userinfo['username'] == ''):
+        _state['success'] = False
+        _state['message'] = _('"Username" have not inputed.')
+        return _state"""
+
+    if (_userinfo['newemail'] == ''):
+        _state['success'] = False
+        _state['message'] = _('"Email" have not inputed.')
+        return _state
+
+        # check password & confirm password
+    """"if (_userinfo['new'] != _userinfo['confirm']):
+        _state['success'] = False
+        _state['message'] = _('"Confirm Password" have not match.')
+        return _state"""
+
+    _user = User.objects.get(username=request.session['username'])
+    _user.email = _userinfo['newemail']
+    _userinfo['realname'] = _user.realname
+    mailer.send_changeemail_success_mail(_userinfo)
+    # try:
+    _user.save()
+    _state['success'] = True
+    _state['message'] = _('Successed.')
+    # except:
+    # _state['success'] = False
+    # _state['message'] = '程序异常,注册失败.'
+
+    # send regist success mail
+
+    return _state
+
+def changeemail(request):
+    # check is login
+    _islogin = __is_login(request)
+
+    if (not _islogin):
+        return HttpResponseRedirect('/signin/')
+
+    _user_id = __user_id(request)
+    try:
+        _user = User.objects.get(id=_user_id)
+    except:
+        return HttpResponseRedirect('/signin/')
+    _userinfo = {
+       # 'username': '',
+        'newemail': '',
+        'realname': '',
+    }
+    try:
+        # get post params
+        _userinfo = {
+           # 'username': request.POST['username'],
+            'newemail': request.POST['newemail'],
+        }
+        _is_post = True
+    except (KeyError):
+        _is_post = False
+
+        # check username and password
+    if _is_post:
+        _state = __do_changeemail(request, _userinfo)
+
+        if _state['success']:
+            return __result_message(request, _('Change successed'), _('You have change email successed now.'))
+    else:
+        _state = {
+            'success': False,
+            'message': _('Please form email.')
+        }
+    _template = loader.get_template('changeemail.html')
+    _context = {
+        'page_title': _('Change email'),
+        'state': _state,
+    }
+    _output = _template.render(_context)
+    return HttpResponse(_output)
 def __do_changepassword(request, _userinfo):
     _state = {
         'success': False,
@@ -585,6 +669,25 @@ def changepassword(request):
     return HttpResponse(_output)
 
 # all users list
+def account(request):
+    _islogin = __is_login(request)
+
+    if (not _islogin):
+        return HttpResponseRedirect('/signin/')
+
+    _user_id = __user_id(request)
+    try:
+        _user = User.objects.get(id=_user_id)
+    except:
+        return HttpResponseRedirect('/signin/')
+    _template = loader.get_template('account.html')
+    _context = {
+        'page_title': _('Account'),
+        #'state': _state,
+    }
+    _output = _template.render(_context)
+    return HttpResponse(_output)
+
 def users_index(request):
     return users_list(request,1)
     
