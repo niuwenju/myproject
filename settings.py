@@ -3,7 +3,7 @@
 import os
 
 WEB_PATH = (os.path.dirname(os.path.abspath(__file__)))
-ALLOWED_HOSTS="10.112.66.167"
+ALLOWED_HOSTS="***"
 DEBUG = True
 
 ADMINS = (
@@ -174,7 +174,7 @@ DATABASES = {
         'NAME': 'tmitter2',  # Or path to database file if using sqlite3.
         'USER': 'root',  # Not used with sqlite3.
         'PASSWORD': '123456',  # Not used with sqlite3.
-        'HOST': '10.112.66.167',  # Set to empty string for localhost. Not used with sqlite3.
+        'HOST': '***',  # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '3306',  # Set to empty string for default. Not used with sqlite3.
     }
 }

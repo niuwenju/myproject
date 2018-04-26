@@ -37,7 +37,7 @@ urlpatterns = [
     url(r'^signout/$',tmitter.mvc.views.signout),
     url(r'^signup/$',tmitter.mvc.views.signup),
     url(r'^settings/$',tmitter.mvc.views.settings, name ='tmitter_mvc_views_settings'),
-    url(r'^account/$',tmitter.mvc.views.account, name ='tmitter_mvc_views_account'),
+    url(r'^edit/$',tmitter.mvc.views.edit, name ='tmitter_mvc_views_edit'),
     url(r'^changepassword/$',tmitter.mvc.views.changepassword, name ='tmitter_mvc_views_changepassword'),
     url(r'^changeemail/$', tmitter.mvc.views.changeemail, name='tmitter_mvc_views_changeemail'),
     url(r'^message/(?P<_id>\d+)/$',tmitter.mvc.views.detail, name = "tmitter-mvc-views-detail"),

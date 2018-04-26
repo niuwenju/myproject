@@ -579,6 +579,7 @@ def changeemail(request):
     _context = {
         'page_title': _('Change email'),
         'state': _state,
+        'islogin': _islogin,
     }
     _output = _template.render(_context)
     return HttpResponse(_output)
@@ -651,38 +652,50 @@ def changepassword(request):
 
         # check username and password
     if _is_post:
-        _state = __do_changepassword(request, _userinfo)
 
-        if _state['success']:
-            return __result_message(request, _('Change successed'), _('You have change password successed now.'))
+        # try:
+            _user.save()
+            _state['success'] = True
+            _state['message'] = _('Successed.')
+        # except:
+        # _state['success'] = False
+        # _state['message'] = '程序异常,注册失败.'
+
+        # send regist success mail
+        #_state = __do_changepassword(request, _userinfo)
+
+            if _state['success']:
+                return __result_message(request, _('Change successed'), _('You have change password successed now.'))
     else:
         _state = {
             'success': False,
-            'message': _('Please form password.')
+            'message': _('Please form newpassword.')
         }
     _template = loader.get_template('changepassword.html')
     _context = {
         'page_title': _('Changepassword'),
         'state': _state,
+        'islogin': _islogin,
     }
     _output = _template.render(_context)
     return HttpResponse(_output)
 
 # all users list
-def account(request):
+def edit(request):
     _islogin = __is_login(request)
 
     if (not _islogin):
         return HttpResponseRedirect('/signin/')
 
-    _user_id = __user_id(request)
-    try:
-        _user = User.objects.get(id=_user_id)
-    except:
-        return HttpResponseRedirect('/signin/')
-    _template = loader.get_template('account.html')
+    #_user_id = __user_id(request)
+    #try:
+     #   _user = User.objects.get(id=_user_id)
+    #except:
+        #return HttpResponseRedirect('/signin/')
+    _template = loader.get_template('edit.html')
     _context = {
-        'page_title': _('Account'),
+        'page_title': _('Edit'),
+        'islogin': _islogin,
         #'state': _state,
     }
     _output = _template.render(_context)
