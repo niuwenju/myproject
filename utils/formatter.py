@@ -74,7 +74,7 @@ def pagebar(objects,page_index,username='',tempate='control/home_pagebar.html'):
         'page_count': _paginator.num_pages,
         'row_count' : _paginator.count,
         'page_nums': range(_paginator.num_pages+1)[1:],
-    }).content
+    })
 
     
     

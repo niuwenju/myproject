@@ -7,12 +7,12 @@
     {% ifequal page_index 1 %}
         {% trans 'First' %}
     {% else %}
-        <a href="{% url tmitter.mvc.views.users_list page_index %}">{% trans 'First' %}</a>
+        <a href="{% url 'tmitter.mvc.views.users_list' 1 %}">{% trans 'First' %}</a>
     {% endifequal %}
     </span>
     <span class="prev">
     {% if has_prev %}
-        <a href="{% url tmitter.mvc.views.users_list page_prev %}">{% trans 'Prev' %}</a>
+        <a href="{% url 'tmitter.mvc.views.users_list' page_prev %}">{% trans 'Prev' %}</a>
     {% else %}
         {% trans 'Prev' %}
     {% endif %}
@@ -20,7 +20,7 @@
     <span class="page">{{ page_index }}/{{ page_count }}</span>
     <span class="next">
     {% if has_next %}
-        <a href="{% url tmitter.mvc.views.users_list page_next %}">{% trans 'Next' %}</a>
+        <a href="{% url 'tmitter.mvc.views.users_list' page_next %}">{% trans 'Next' %}</a>
     {% else %}
         {% trans 'Next' %}
     {% endif %}
@@ -29,7 +29,7 @@
     {% ifequal page_index page_count %}
         {% trans 'Last' %}
     {% else %}
-        <a href="{% url tmitter.mvc.views.users_list page_count %}">{% trans 'Last' %}</a>
+        <a href="{% url 'tmitter.mvc.views.users_list' page_count %}">{% trans 'Last' %}</a>
     {% endifequal %}
     </span><br />
     <span class="tip">{% trans 'All of ' %} {{ row_count }} {% trans 'users. ' %} </span>

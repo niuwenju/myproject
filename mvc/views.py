@@ -178,9 +178,16 @@ def __result_message(request,_title=_('Message'),_message=_('Unknow error,proces
 
 # home view
 def index(request):
-    return index_user(request,'')
-    _user_name = __user_name(request)
-    return index_user(request,_user_name)
+    #return index_user(request,'')
+    try:
+        _user_name = __user_name(request)
+        hasusername = True
+    except (KeyError):
+        hasusername = False
+    if hasusername:
+        return index_user(request,_user_name)
+    else:
+        return index_user(request, '')
 
 # user messages view by self
 def index_user_self(request):
@@ -268,6 +275,8 @@ def index_user_page(request,_username,_page_index):
             _notes = []# Note.objects.order_by('-addtime')
 
     # page bar
+    #_user = User.objects.get(id=__user_id(request))
+    #_username = _user.username
     _page_bar = formatter.pagebar(_notes,_page_index,_username)
     
     # get current page
@@ -573,7 +582,7 @@ def changeemail(request):
     else:
         _state = {
             'success': False,
-            'message': _('Please form email.')
+            'message': _('Please form newemail.')
         }
     _template = loader.get_template('changeemail.html')
     _context = {
